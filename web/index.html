@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="PageLab - Smart Document & Photo Utility Suite">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="PageLab">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>PageLab — Smart Document & Photo Utility Suite</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- MediaPipe Selfie Segmentation AI (100% Client-Side, Free, Neural Human Cutout) -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+  <script>
+    window._mediaPipeSegmenter = null;
+
+    function initMediaPipe() {
+      if (window._mediaPipeSegmenter) return window._mediaPipeSegmenter;
+      if (typeof SelfieSegmentation === 'undefined') return null;
+      try {
+        const segmenter = new SelfieSegmentation({
+          locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
+        });
+        segmenter.setOptions({
+          modelSelection: 1 // 1 = landscape/full body model, high accuracy
+        });
+        window._mediaPipeSegmenter = segmenter;
+        return segmenter;
+      } catch (e) {
+        console.error("MediaPipe initialization error:", e);
+        return null;
+      }
+    }
+
+    // Process image element or ImageBitmap and return mask (0 = BG, 255 = Subject)
+    window.processAiBackgroundRemoval = function(base64DataUri) {
+      return new Promise((resolve) => {
+        try {
+          const segmenter = initMediaPipe();
+          if (!segmenter) {
+            resolve(null);
+            return;
+          }
+
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = async () => {
+            const width = img.naturalWidth || img.width;
+            const height = img.naturalHeight || img.height;
+
+            segmenter.onResults((results) => {
+              try {
+                if (!results.segmentationMask) {
+                  resolve(null);
+                  return;
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                ctx.drawImage(results.segmentationMask, 0, 0, width, height);
+
+                const imgData = ctx.getImageData(0, 0, width, height);
+                const data = imgData.data; // RGBA Uint8ClampedArray
+                const mask = new Array(width * height);
+
+                for (let i = 0; i < mask.length; i++) {
+                  // White/high luminance in mask = person/foreground
+                  const val = data[i * 4]; 
+                  mask[i] = val > 70 ? 255 : 0;
+                }
+
+                resolve({
+                  width: width,
+                  height: height,
+                  mask: mask
+                });
+              } catch (err) {
+                console.error("Mask extraction error:", err);
+                resolve(null);
+              }
+            });
+
+            await segmenter.send({ image: img });
+          };
+
+          img.onerror = (e) => {
+            console.error("Image load error:", e);
+            resolve(null);
+          };
+
+          img.src = base64DataUri;
+        } catch (e) {
+          console.error("processAiBackgroundRemoval exception:", e);
+          resolve(null);
+        }
+      });
+    };
+
+    // Listen for Flutter CustomEvent request
+    window.addEventListener('start_ai_mask', async (event) => {
+      const dataUri = event.detail;
+      const result = await window.processAiBackgroundRemoval(dataUri);
+      window.dispatchEvent(new CustomEvent('ai_mask_ready', { detail: result }));
+    });
+  </script>
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
