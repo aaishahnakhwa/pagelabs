@@ -3,15 +3,9 @@ import '../theme/app_colors.dart';
 import 'crop_resize_screen.dart';
 import 'bulk_resize_screen.dart';
 import 'hd_enhance_screen.dart';
-import 'image_to_pdf_screen.dart';
-import 'pdf_to_image_screen.dart';
-import 'compress_pdf_screen.dart';
 import 'passport_photo_screen.dart';
 import 'format_converter_screen.dart';
-import 'merge_pdf_screen.dart';
-import 'split_pdf_screen.dart';
 import 'bg_remover_screen.dart';
-import 'sign_pdf_screen.dart';
 
 class ToolsCatalogScreen extends StatefulWidget {
   const ToolsCatalogScreen({super.key});
@@ -27,8 +21,8 @@ class _ToolsCatalogScreenState extends State<ToolsCatalogScreen> {
   final List<_ToolItem> _allTools = [
     _ToolItem(
       title: 'Passport Size Photo',
-      category: 'Photo',
-      description: 'Country sizes (India, US, UK, Schengen), auto-enhance & A4 sheets',
+      category: 'Passport & Portrait',
+      description: 'India, US, UK, Schengen & custom sizes with printable sheets',
       icon: Icons.account_box_rounded,
       color: AppColors.toolRedIcon,
       bgColor: AppColors.toolRedBg,
@@ -36,16 +30,25 @@ class _ToolsCatalogScreenState extends State<ToolsCatalogScreen> {
     ),
     _ToolItem(
       title: 'AI Background Remover',
-      category: 'Image',
-      description: '100% Free offline background removal & color replacer',
+      category: 'Passport & Portrait',
+      description: '100% Free offline portrait cutout, white & blue background changer',
       icon: Icons.auto_awesome_rounded,
       color: AppColors.sageGreen,
       bgColor: AppColors.toolGreenBg,
       builder: (_) => const BgRemoverScreen(),
     ),
     _ToolItem(
+      title: 'HD Quality Enhancement',
+      category: 'Passport & Portrait',
+      description: 'Sharpness enhancement, detail boost and interactive split comparison',
+      icon: Icons.high_quality_rounded,
+      color: AppColors.toolAmberIcon,
+      bgColor: AppColors.toolAmberBg,
+      builder: (_) => const HdEnhanceScreen(),
+    ),
+    _ToolItem(
       title: 'Image Cropping & Resizing',
-      category: 'Image',
+      category: 'Image Editing',
       description: 'Free crop, 1:1, 4:3, 16:9, rotate, flip and custom dimensions',
       icon: Icons.crop_rounded,
       color: AppColors.toolOrangeIcon,
@@ -54,7 +57,7 @@ class _ToolsCatalogScreenState extends State<ToolsCatalogScreen> {
     ),
     _ToolItem(
       title: 'Bulk Image Resize',
-      category: 'Image',
+      category: 'Image Editing',
       description: 'Resize 10s or 100s of images at once by px or percentage',
       icon: Icons.filter_none_rounded,
       color: AppColors.sageGreen,
@@ -62,85 +65,13 @@ class _ToolsCatalogScreenState extends State<ToolsCatalogScreen> {
       builder: (_) => const BulkResizeScreen(),
     ),
     _ToolItem(
-      title: 'HD Quality Enhancement',
-      category: 'Image',
-      description: 'Sharpness enhancement, detail boost and interactive split comparison',
-      icon: Icons.high_quality_rounded,
-      color: AppColors.toolAmberIcon,
-      bgColor: AppColors.toolAmberBg,
-      builder: (_) => const HdEnhanceScreen(),
-    ),
-    _ToolItem(
-      title: 'Image to PDF',
-      category: 'PDF',
-      description: 'Convert photos to A4/Letter PDF with custom margins and orientation',
-      icon: Icons.picture_as_pdf_outlined,
-      color: AppColors.toolRedIcon,
-      bgColor: AppColors.toolRedBg,
-      builder: (_) => const ImageToPdfScreen(),
-    ),
-    _ToolItem(
-      title: 'Bulk Images to PDF',
-      category: 'PDF',
-      description: 'Combine multiple photos into a single paginated PDF document',
-      icon: Icons.collections_bookmark_rounded,
-      color: AppColors.toolOrangeIcon,
-      bgColor: AppColors.toolOrangeBg,
-      builder: (_) => const ImageToPdfScreen(),
-    ),
-    _ToolItem(
-      title: 'PDF to Image',
-      category: 'PDF',
-      description: 'Extract PDF pages as crisp JPG or PNG images with DPI selection',
-      icon: Icons.image_outlined,
-      color: AppColors.toolBlueIcon,
-      bgColor: AppColors.toolBlueBg,
-      builder: (_) => const PdfToImageScreen(),
-    ),
-    _ToolItem(
-      title: 'Compress PDF',
-      category: 'PDF',
-      description: 'Reduce file size with Low, Medium or High compression presets',
-      icon: Icons.compress_rounded,
-      color: AppColors.toolPurpleIcon,
-      bgColor: AppColors.toolPurpleBg,
-      builder: (_) => const CompressPdfScreen(),
-    ),
-    _ToolItem(
       title: 'Format Converter',
-      category: 'Image',
+      category: 'Image Editing',
       description: 'Convert between JPG, PNG and WebP formats instantly',
       icon: Icons.swap_horiz_rounded,
       color: AppColors.toolPurpleIcon,
       bgColor: AppColors.toolPurpleBg,
       builder: (_) => const FormatConverterScreen(),
-    ),
-    _ToolItem(
-      title: 'Merge PDF',
-      category: 'PDF',
-      description: 'Combine multiple PDF documents into one seamless file',
-      icon: Icons.call_merge_rounded,
-      color: AppColors.toolRedIcon,
-      bgColor: AppColors.toolRedBg,
-      builder: (_) => const MergePdfScreen(),
-    ),
-    _ToolItem(
-      title: 'Split PDF',
-      category: 'PDF',
-      description: 'Extract specific pages or page ranges from a PDF document',
-      icon: Icons.call_split_rounded,
-      color: AppColors.slateBlue,
-      bgColor: AppColors.slateBlueContainer,
-      builder: (_) => const SplitPdfScreen(),
-    ),
-    _ToolItem(
-      title: 'Sign PDF & Document',
-      category: 'PDF',
-      description: 'Draw, type, or upload digital signatures and stamps directly on documents',
-      icon: Icons.draw_rounded,
-      color: AppColors.primary,
-      bgColor: AppColors.primaryContainer,
-      builder: (_) => const SignPdfScreen(),
     ),
   ];
 
@@ -164,7 +95,7 @@ class _ToolsCatalogScreenState extends State<ToolsCatalogScreen> {
       appBar: AppBar(
         titleSpacing: 18,
         title: const Text(
-          'All Tools',
+          'Tools Catalog',
           style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20, letterSpacing: -0.3),
         ),
       ),
@@ -188,7 +119,7 @@ class _ToolsCatalogScreenState extends State<ToolsCatalogScreen> {
                       children: [
                         TextField(
                           decoration: InputDecoration(
-                            hintText: 'Search tools (e.g. passport, crop, compress)...',
+                            hintText: 'Search tools (e.g. passport, cutout, crop, enhance)...',
                             prefixIcon: const Icon(Icons.search_rounded, size: 20),
                             suffixIcon: _search.isNotEmpty
                                 ? IconButton(
@@ -205,9 +136,8 @@ class _ToolsCatalogScreenState extends State<ToolsCatalogScreen> {
                           child: Row(
                             children: [
                               _buildCategoryChip('All'),
-                              _buildCategoryChip('Photo'),
-                              _buildCategoryChip('Image'),
-                              _buildCategoryChip('PDF'),
+                              _buildCategoryChip('Passport & Portrait'),
+                              _buildCategoryChip('Image Editing'),
                             ],
                           ),
                         ),

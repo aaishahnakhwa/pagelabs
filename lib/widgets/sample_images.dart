@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:image/image.dart' as img;
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 
 class SampleImagesHelper {
   /// Generates a scenic mountain landscape image (similar to the mockup)
@@ -210,77 +208,5 @@ class SampleImagesHelper {
     return Uint8List.fromList(img.encodeJpg(image, quality: 92));
   }
 
-  /// Generates a multi-page sample PDF document for testing PDF tools & compression
-  static Future<Uint8List> getSamplePdfDocument() async {
-    final pdf = pw.Document();
-
-    for (int i = 1; i <= 3; i++) {
-      pdf.addPage(
-        pw.Page(
-          pageFormat: PdfPageFormat.a4,
-          margin: const pw.EdgeInsets.all(40),
-          build: (pw.Context ctx) {
-            return pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  children: [
-                    pw.Text(
-                      'PageLab Sample Report',
-                      style: pw.TextStyle(
-                        fontSize: 22,
-                        fontWeight: pw.FontWeight.bold,
-                        color: PdfColors.blueGrey800,
-                      ),
-                    ),
-                    pw.Text('Page $i of 3', style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey600)),
-                  ],
-                ),
-                pw.Divider(thickness: 1.5, color: PdfColors.deepOrange400),
-                pw.SizedBox(height: 20),
-                pw.Text(
-                  'Section $i: High Resolution Document Processing',
-                  style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold, color: PdfColors.blueGrey700),
-                ),
-                pw.SizedBox(height: 10),
-                pw.Text(
-                  'PageLab offers enterprise-grade document and image utilities running 100% offline. '
-                  'Your data never leaves your device. Test image to PDF conversion, multi-page extraction, '
-                  'smart compression, and passport photo generation.',
-                  style: const pw.TextStyle(fontSize: 12, lineSpacing: 2),
-                ),
-                pw.SizedBox(height: 20),
-                pw.Container(
-                  height: 180,
-                  width: double.infinity,
-                  decoration: pw.BoxDecoration(
-                    color: PdfColors.orange50,
-                    border: pw.Border.all(color: PdfColors.orange200),
-                    borderRadius: const pw.BorderRadius.all(pw.Radius.circular(8)),
-                  ),
-                  child: pw.Center(
-                    child: pw.Text(
-                      'Sample Chart / Figure #$i',
-                      style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold, color: PdfColors.deepOrange800),
-                    ),
-                  ),
-                ),
-                pw.Spacer(),
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  children: [
-                    pw.Text('Confidential - PageLab Utility Suite', style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey500)),
-                    pw.Text('Date: October 2026', style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey500)),
-                  ],
-                ),
-              ],
-            );
-          },
-        ),
-      );
-    }
-
-    return pdf.save();
-  }
 }
+

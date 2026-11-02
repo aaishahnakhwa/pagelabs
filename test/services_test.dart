@@ -26,12 +26,6 @@ void main() {
       expect(decoded!.width, equals(800));
       expect(decoded.height, equals(1000));
     });
-
-    test('Sample PDF document generates valid bytes', () async {
-      final pdfBytes = await SampleImagesHelper.getSamplePdfDocument();
-      expect(pdfBytes, isNotEmpty);
-      expect(pdfBytes.length, greaterThan(1000));
-    });
   });
 
   group('ImageService Operations', () {
@@ -155,19 +149,7 @@ void main() {
     });
   });
 
-  group('PdfService Operations', () {
-    test('createPdfFromImages creates a valid multi-page PDF', () async {
-      final img1 = SampleImagesHelper.getLandscapeSample();
-      final img2 = SampleImagesHelper.getPortraitSample();
-
-      final pdfBytes = await PdfService().createPdfFromImages(
-        images: [img1, img2],
-      );
-
-      expect(pdfBytes, isNotEmpty);
-      expect(pdfBytes.length, greaterThan(2000));
-    });
-
+  group('Passport Sheet Printing Operations', () {
     test('createPassportPrintSheet creates print-ready multi-copy A4 sheet', () async {
       final portraitBytes = SampleImagesHelper.getPortraitSample();
       final preset = PassportPreset.presets.first;

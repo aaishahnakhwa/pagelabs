@@ -44,49 +44,6 @@ class FilePickerHelper {
     return results;
   }
 
-  static Future<PickedDoc?> pickSinglePdf() async {
-    final files = await FilePicker.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-    if (files.isNotEmpty) {
-      final bytes = await _readBytes(files.first);
-      if (bytes != null) {
-        return PickedDoc(name: files.first.name, bytes: bytes);
-      }
-    }
-    return null;
-  }
-
-  static Future<List<PickedDoc>> pickMultiplePdfs() async {
-    final files = await FilePicker.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-    final List<PickedDoc> results = [];
-    for (final file in files) {
-      final bytes = await _readBytes(file);
-      if (bytes != null) {
-        results.add(PickedDoc(name: file.name, bytes: bytes));
-      }
-    }
-    return results;
-  }
-
-  static Future<PickedDoc?> pickSingleDocumentOrImageWithDetails() async {
-    final files = await FilePicker.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'webp'],
-    );
-    if (files.isNotEmpty) {
-      final bytes = await _readBytes(files.first);
-      if (bytes != null) {
-        return PickedDoc(name: files.first.name, bytes: bytes);
-      }
-    }
-    return null;
-  }
-
   static Future<Uint8List?> _readBytes(PlatformFile file) async {
     try {
       return await file.readAsBytes();

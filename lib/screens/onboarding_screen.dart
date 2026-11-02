@@ -32,7 +32,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     const _OnboardingItem(
       title: 'Print-Ready & HD\nQuality Exports.',
       description:
-          'Generate official passport photos, printable multi-image A4 sheets, and HD PDF documents in seconds.',
+          'Generate official passport photos, printable multi-image A4 sheets, and studio-quality portraits in seconds.',
       icon: Icons.print_rounded,
       highlightColor: AppColors.slateBlue,
     ),

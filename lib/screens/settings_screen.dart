@@ -70,7 +70,7 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'All cropping, resizing, PDF rendering, compression and passport photo generation happen locally on your device.',
+                            'All cropping, resizing, background removal, photo enhancement and passport photo generation happen locally on your device.',
                             style: TextStyle(
                               fontSize: 12,
                               height: 1.4,

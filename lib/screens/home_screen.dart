@@ -4,15 +4,9 @@ import '../services/storage_service.dart';
 import 'crop_resize_screen.dart';
 import 'bulk_resize_screen.dart';
 import 'hd_enhance_screen.dart';
-import 'image_to_pdf_screen.dart';
-import 'pdf_to_image_screen.dart';
-import 'compress_pdf_screen.dart';
 import 'passport_photo_screen.dart';
 import 'format_converter_screen.dart';
-import 'merge_pdf_screen.dart';
-import 'split_pdf_screen.dart';
 import 'bg_remover_screen.dart';
-import 'sign_pdf_screen.dart';
 import 'settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -71,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Offline Image & PDF Suite',
+                  'Offline Passport & Image Studio',
                   style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
@@ -147,13 +141,13 @@ class HomeScreen extends StatelessWidget {
                     _buildFeaturedPassportCard(context, isDark, isWide),
                     const SizedBox(height: 24),
 
-                    // 3. Photo & Image Tools (6 tools)
+                    // 3. Passport & Portrait Studio Tools (3 tools)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _buildSectionTitle('Photo & Image Tools'),
+                        _buildSectionTitle('Passport & Portrait Studio'),
                         Text(
-                          '6 Tools',
+                          '3 Tools',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -198,17 +192,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                         _buildToolCard(
                           context: context,
-                          title: 'Crop & Resize',
-                          subtitle: 'Aspect ratio, rotate & flip',
-                          icon: Icons.crop_rotate_rounded,
-                          iconColor: AppColors.toolOrangeIcon,
-                          bgColor: AppColors.toolOrangeBg,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const CropResizeScreen()),
-                          ),
-                        ),
-                        _buildToolCard(
-                          context: context,
                           title: 'HD Enhance',
                           subtitle: 'Sharpness & denoise',
                           icon: Icons.high_quality_rounded,
@@ -218,40 +201,18 @@ class HomeScreen extends StatelessWidget {
                             MaterialPageRoute(builder: (_) => const HdEnhanceScreen()),
                           ),
                         ),
-                        _buildToolCard(
-                          context: context,
-                          title: 'Format Converter',
-                          subtitle: 'JPG, PNG & WebP',
-                          icon: Icons.swap_horiz_rounded,
-                          iconColor: AppColors.toolPurpleIcon,
-                          bgColor: AppColors.toolPurpleBg,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const FormatConverterScreen()),
-                          ),
-                        ),
-                        _buildToolCard(
-                          context: context,
-                          title: 'Bulk Resize',
-                          subtitle: 'Batch process multiple',
-                          icon: Icons.filter_none_rounded,
-                          iconColor: AppColors.sageGreen,
-                          bgColor: AppColors.toolGreenBg,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const BulkResizeScreen()),
-                          ),
-                        ),
                       ],
                     ),
 
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 24),
 
-                    // 4. PDF Studio Tools (6 tools)
+                    // 4. Image Editing & Studio Tools (3 tools)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _buildSectionTitle('PDF Tools'),
+                        _buildSectionTitle('Image Editing & Studio'),
                         Text(
-                          '6 Tools',
+                          '3 Tools',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -273,79 +234,35 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         _buildToolCard(
                           context: context,
-                          title: 'Image to PDF',
-                          subtitle: 'Photos to A4/Letter PDF',
-                          icon: Icons.picture_as_pdf_outlined,
-                          iconColor: AppColors.toolRedIcon,
-                          bgColor: AppColors.toolRedBg,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const ImageToPdfScreen()),
-                          ),
-                        ),
-                        _buildToolCard(
-                          context: context,
-                          title: 'PDF to Image',
-                          subtitle: 'Extract crisp JPG / PNG',
-                          icon: Icons.image_outlined,
-                          iconColor: AppColors.toolBlueIcon,
-                          bgColor: AppColors.toolBlueBg,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const PdfToImageScreen()),
-                          ),
-                        ),
-                        _buildToolCard(
-                          context: context,
-                          title: 'Compress PDF',
-                          subtitle: 'Reduce size, keep crisp',
-                          icon: Icons.compress_rounded,
-                          iconColor: AppColors.toolPurpleIcon,
-                          bgColor: AppColors.toolPurpleBg,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const CompressPdfScreen()),
-                          ),
-                        ),
-                        _buildToolCard(
-                          context: context,
-                          title: 'Merge PDF',
-                          subtitle: 'Combine multiple documents',
-                          icon: Icons.call_merge_rounded,
-                          iconColor: AppColors.toolRedIcon,
-                          bgColor: AppColors.toolRedBg,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const MergePdfScreen()),
-                          ),
-                        ),
-                        _buildToolCard(
-                          context: context,
-                          title: 'Split PDF',
-                          subtitle: 'Extract specific pages',
-                          icon: Icons.call_split_rounded,
-                          iconColor: AppColors.slateBlue,
-                          bgColor: AppColors.slateBlueContainer,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const SplitPdfScreen()),
-                          ),
-                        ),
-                        _buildToolCard(
-                          context: context,
-                          title: 'Bulk to PDF',
-                          subtitle: 'Multi-image booklet',
-                          icon: Icons.collections_bookmark_rounded,
+                          title: 'Crop & Resize',
+                          subtitle: 'Aspect ratio, rotate & flip',
+                          icon: Icons.crop_rotate_rounded,
                           iconColor: AppColors.toolOrangeIcon,
                           bgColor: AppColors.toolOrangeBg,
                           onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const ImageToPdfScreen()),
+                            MaterialPageRoute(builder: (_) => const CropResizeScreen()),
                           ),
                         ),
                         _buildToolCard(
                           context: context,
-                          title: 'Sign PDF',
-                          subtitle: 'Draw, type, or stamp sign',
-                          icon: Icons.draw_rounded,
-                          iconColor: AppColors.primary,
-                          bgColor: AppColors.primaryContainer,
+                          title: 'Bulk Resize',
+                          subtitle: 'Batch process multiple',
+                          icon: Icons.filter_none_rounded,
+                          iconColor: AppColors.sageGreen,
+                          bgColor: AppColors.toolGreenBg,
                           onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const SignPdfScreen()),
+                            MaterialPageRoute(builder: (_) => const BulkResizeScreen()),
+                          ),
+                        ),
+                        _buildToolCard(
+                          context: context,
+                          title: 'Format Converter',
+                          subtitle: 'JPG, PNG & WebP',
+                          icon: Icons.swap_horiz_rounded,
+                          iconColor: AppColors.toolPurpleIcon,
+                          bgColor: AppColors.toolPurpleBg,
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => const FormatConverterScreen()),
                           ),
                         ),
                       ],
@@ -655,7 +572,7 @@ class HomeScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Icon(
-                              item.type == 'pdf' ? Icons.picture_as_pdf_rounded : Icons.image_rounded,
+                              item.type == 'pdf' ? Icons.print_rounded : Icons.image_rounded,
                               size: 18,
                               color: item.type == 'pdf' ? AppColors.toolRedIcon : AppColors.toolBlueIcon,
                             ),

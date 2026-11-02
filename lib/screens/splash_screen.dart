@@ -144,7 +144,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         const SizedBox(height: 8),
                         // Tagline
                         Text(
-                          'All your images & PDFs, in one place.',
+                          'All your passport photos & images, perfected offline.',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,

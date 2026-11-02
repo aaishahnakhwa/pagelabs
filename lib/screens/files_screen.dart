@@ -6,8 +6,8 @@ import '../models/history_item.dart';
 import '../services/storage_service.dart';
 import '../services/file_saver/file_saver.dart' as saver;
 import 'crop_resize_screen.dart';
-import 'image_to_pdf_screen.dart';
-import 'compress_pdf_screen.dart';
+import 'passport_photo_screen.dart';
+import 'bg_remover_screen.dart';
 
 class FilesScreen extends StatefulWidget {
   const FilesScreen({super.key});
@@ -46,7 +46,7 @@ class _FilesScreenState extends State<FilesScreen> {
 
         final filteredList = history.where((item) {
           if (_filter == 'Images' && item.type != 'image') return false;
-          if (_filter == 'PDFs' && item.type != 'pdf') return false;
+          if (_filter == 'Print Sheets' && item.type != 'pdf') return false;
           if (_searchQuery.isNotEmpty &&
               !item.title.toLowerCase().contains(_searchQuery.toLowerCase()) &&
               !item.subtitle.toLowerCase().contains(_searchQuery.toLowerCase())) {
@@ -176,7 +176,7 @@ class _FilesScreenState extends State<FilesScreen> {
                               children: [
                                 _buildFilterPill('All', history.length),
                                 _buildFilterPill('Images', history.where((i) => i.type == 'image').length),
-                                _buildFilterPill('PDFs', history.where((i) => i.type == 'pdf').length),
+                                _buildFilterPill('Print Sheets', history.where((i) => i.type == 'pdf').length),
                                 if (history.isNotEmpty) ...[
                                   const SizedBox(width: 8),
                                   Text(
@@ -254,7 +254,7 @@ class _FilesScreenState extends State<FilesScreen> {
                                       const SizedBox(height: 8),
                                       Text(
                                         history.isEmpty
-                                            ? 'Your cropped photos, converted PDFs, and passport sheets will appear here.'
+                                            ? 'Your cropped photos, passport photos, and print sheets will appear here.'
                                             : 'Try searching with a different keyword.',
                                         style: TextStyle(
                                           fontSize: 13,
@@ -269,24 +269,24 @@ class _FilesScreenState extends State<FilesScreen> {
                                           runSpacing: 8,
                                           children: [
                                             ActionChip(
-                                              avatar: const Icon(Icons.crop_rounded, size: 16, color: AppColors.primary),
-                                              label: const Text('Crop an Image'),
+                                              avatar: const Icon(Icons.account_box_rounded, size: 16, color: AppColors.toolRedIcon),
+                                              label: const Text('Passport Photo'),
+                                              onPressed: () => Navigator.of(context).push(
+                                                MaterialPageRoute(builder: (_) => const PassportPhotoScreen()),
+                                              ),
+                                            ),
+                                            ActionChip(
+                                              avatar: const Icon(Icons.auto_awesome_rounded, size: 16, color: AppColors.sageGreen),
+                                              label: const Text('AI BG Remover'),
+                                              onPressed: () => Navigator.of(context).push(
+                                                MaterialPageRoute(builder: (_) => const BgRemoverScreen()),
+                                              ),
+                                            ),
+                                            ActionChip(
+                                              avatar: const Icon(Icons.crop_rounded, size: 16, color: AppColors.toolOrangeIcon),
+                                              label: const Text('Crop & Resize'),
                                               onPressed: () => Navigator.of(context).push(
                                                 MaterialPageRoute(builder: (_) => const CropResizeScreen()),
-                                              ),
-                                            ),
-                                            ActionChip(
-                                              avatar: const Icon(Icons.picture_as_pdf_outlined, size: 16, color: AppColors.toolRedIcon),
-                                              label: const Text('Create PDF'),
-                                              onPressed: () => Navigator.of(context).push(
-                                                MaterialPageRoute(builder: (_) => const ImageToPdfScreen()),
-                                              ),
-                                            ),
-                                            ActionChip(
-                                              avatar: const Icon(Icons.compress_rounded, size: 16, color: AppColors.toolPurpleIcon),
-                                              label: const Text('Compress PDF'),
-                                              onPressed: () => Navigator.of(context).push(
-                                                MaterialPageRoute(builder: (_) => const CompressPdfScreen()),
                                               ),
                                             ),
                                           ],
@@ -380,7 +380,7 @@ class _FilesScreenState extends State<FilesScreen> {
                                                   )
                                                 : Icon(
                                                     item.type == 'pdf'
-                                                        ? Icons.picture_as_pdf_rounded
+                                                        ? Icons.print_rounded
                                                         : Icons.image_rounded,
                                                     color: item.type == 'pdf'
                                                         ? AppColors.toolRedIcon
@@ -591,7 +591,7 @@ class _FilesScreenState extends State<FilesScreen> {
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
-                          isPdf ? Icons.picture_as_pdf_rounded : Icons.image_rounded,
+                          isPdf ? Icons.print_rounded : Icons.image_rounded,
                           size: 20,
                           color: isPdf ? AppColors.toolRedIcon : AppColors.toolBlueIcon,
                         ),
@@ -652,7 +652,7 @@ class _FilesScreenState extends State<FilesScreen> {
                                     ),
                                   ),
                                   child: const Icon(
-                                    Icons.picture_as_pdf_rounded,
+                                    Icons.print_rounded,
                                     size: 56,
                                     color: AppColors.toolRedIcon,
                                   ),
@@ -665,7 +665,7 @@ class _FilesScreenState extends State<FilesScreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  'PDF Document (${item.formattedSize})',
+                                  'Print Sheet (${item.formattedSize})',
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: isDark ? AppColors.textMutedDark : AppColors.textMuted,
